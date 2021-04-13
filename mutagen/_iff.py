@@ -246,8 +246,8 @@ class IffContainerChunkMixin():
     def insert_chunk(self, id_, data=None):
         """Insert a new chunk at the end of the container chunk"""
 
-        if not is_valid_chunk_id(id_):
-            raise KeyError("Invalid IFF key.")
+        #if not is_valid_chunk_id(id_):
+        #    raise KeyError("Invalid IFF key.")
 
         next_offset = self.offset + self.size
         size = self.HEADER_SIZE
@@ -258,7 +258,7 @@ class IffContainerChunkMixin():
             size += data_size + padding
         insert_bytes(self._fileobj, size, next_offset)
         self._fileobj.seek(next_offset)
-        self.write_new_header(id_.ljust(4).encode('ascii'), data_size)
+        self.write_new_header(id_.ljust(5).encode('ascii'), data_size)
         self._fileobj.seek(next_offset)
         chunk = self.parse_next_subchunk()
         self._update_size(chunk.size)
